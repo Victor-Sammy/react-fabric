@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import './index.css'
+import 'fabric'
+import DesignCanvas from './DesignCanvas'
+import Rect from './Rect'
+import Circle from './Circle'
+import { useEffect, useState } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function useMouse() {
+  const [mousePosition, setMousePosition] = useState({
+    x: null,
+    y: null,
+  })
+
+  useEffect(() => {
+    function handle(e) {
+      setMousePosition({
+        x: e.pageX,
+        y: e.pageY,
+      })
+    }
+    document.addEventListener('mousemove', handle)
+    return () => document.removeEventListener('mousemove', handle)
+  })
+
+  return mousePosition
 }
 
-export default App;
+function App() {
+  const { x, y } = useMouse()
+  return (
+    <div className='App'>
+      <p>X-axis position: {x}</p>
+      <p>Y-axis position: {y}</p>
+      <DesignCanvas>
+        <Rect width={100} height={100} left={400} fill='blue' />
+        <Circle radius={50} top={300} />
+      </DesignCanvas>
+    </div>
+  )
+}
+
+export default App
