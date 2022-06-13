@@ -3,15 +3,7 @@ import PropTypes from 'prop-types'
 
 const fabric = window.fabric
 
-const canvas = new fabric.Canvas('c')
-
 export default class Rect extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      active: true,
-    }
-  }
   static propTypes = {
     canvas: PropTypes.object,
     top: PropTypes.number.isRequired,
@@ -38,17 +30,17 @@ export default class Rect extends Component {
 
   componentDidMount() {
     const rect = new fabric.Rect(this.props)
-    rect.on('selected', function () {
-      this.setState = {
-        active: false,
-      }
-      canvas.renderAll()
-      console.log('clicked')
-    })
-
     this.props.canvas.add(rect)
+    rect.on('selected', function () {
+      var click = 'shaped is clicked on: true'
+      alert(click)
+    })
+    rect.on('deselected', function () {
+      var click = 'shaped is clicked on: false'
+      alert(click)
+    })
   }
   render() {
-    return <p>shape clicked: {this.state.active ? 'ON' : 'OFF'}</p>
+    return null
   }
 }

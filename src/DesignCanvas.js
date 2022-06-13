@@ -21,7 +21,7 @@ export default class DesignCanvas extends Component {
   }
 
   componentDidMount() {
-    const canvas = new fabric.Canvas(this.c)
+    let canvas = new fabric.Canvas(this.c)
     this.setState({ canvas })
   }
   render() {
@@ -31,6 +31,7 @@ export default class DesignCanvas extends Component {
       })
     })
     const { width, height } = this.props
+
     return (
       <Fragment>
         <canvas ref={(c) => (this.c = c)} width={width} height={height} />

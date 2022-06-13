@@ -24,6 +24,14 @@ export default class Circle extends Component {
   componentDidMount() {
     const circle = new fabric.Circle(this.props)
     this.props.canvas.add(circle)
+    circle.on('selected', function () {
+      var click = 'shaped is clicked on: true'
+      alert(click)
+    })
+    circle.on('deselected', function () {
+      var click = 'shaped is clicked on: false'
+      alert(click)
+    })
   }
   render() {
     return null
